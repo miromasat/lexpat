@@ -1,6 +1,7 @@
 SourceLanguageCode="cs"
 TargetLanguageCode="en"
-botId=''
-botAliasId=''
-localeId=''
-sessionId=''
+botId=""
+botAliasId=""
+localeId=""
+sessionId=""
+initialText=""

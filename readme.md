@@ -11,4 +11,4 @@ localeId=''
 sessionId=''
 `
 
-Ensure you have right AWS roles allowing you to use Amazon Translate and Amazon Lex.
+Ensure you have right AWS roles allowing you to use Amazon Translate and Amazon Lex and also install all dependencies via `pip install -r requirements.txt`.
