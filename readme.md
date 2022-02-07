@@ -12,3 +12,6 @@ sessionId=''
 `
 
 Ensure you have right AWS roles allowing you to use Amazon Translate and Amazon Lex and also install all dependencies via `pip install -r requirements.txt`.
+
+![Diagram of the solution](./diagrams/architecture.jpg)
+
