@@ -17,9 +17,8 @@
           <div class="w-full">
             <div class="relative flex items-center p-3 border-b border-gray-300">
               <span class="block ml-2 font-bold text-gray-600">{{AppName}}</span>
-              <select name="lg" id="lg" class="mx-5 bg-gray-600 text-gray-300" v-model="SelectedLanguage">
-                  <option  disabled>Select Language</option>
-                  <option v-for="language in LanguageList" v-bind:value="{ id: language.id, text: language.name }">
+              <select name="lg" id="lg" class="mx-5 bg-gray-600 text-gray-300" v-model="SelectedLanguage" @change="reset">
+                  <option v-for="language in LanguageList" :value="language">
                    {{ language.name }}
                  </option>
                 </select>
@@ -62,36 +61,7 @@
     </div>
 
 
-  <script>
-    Vue.createApp({
-      data() {
-        return {
-          AppName: 'Lexpat BankBot',
-          SelectedLanguage: {id: 'en', name: 'English'},
-          LanguageList: [
-            {id: 'sk', name: 'Slovensky'},
-            {id: 'cz', name: 'Čeština'},
-            {id: 'hu', name: 'Magyar'},
-            {id: 'de', name: 'Deutch'},
-            {id: 'en', name: 'English'}
-          ],
-          Messages: [
-            {text: 'Hi/Ahoj/Szia/Hallo!', activeClass: 'justify-start'}
-          ],
-          Prompt: ''
-        }
-      },
-      methods: {
-        reply() {
-          
-          var newMessages = this.Messages
-          newMessages.push({ text:this.Prompt, activeClass: 'justify-end' })
-          this.$set(this.Messages, newMessages, true)
-          this.$set(this.Prompt, '', false)
-        }
-      }
-    }).mount('#app')
-  </script>
+  <script type="text/javascript" src="./app.js"></script>
 
   </body>
     
