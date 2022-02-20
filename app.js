@@ -1,3 +1,7 @@
+var lexruntimev2 = new AWS.LexRuntimeV2();
+
+
+
 Vue.createApp({
       data() {
         return {
