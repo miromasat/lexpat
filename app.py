@@ -2,6 +2,7 @@ import boto3
 import json
 from variables import *
 
+
 translate = boto3.client('translate')
 lex = boto3.client('lexv2-runtime')
 

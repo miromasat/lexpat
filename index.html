@@ -8,45 +8,31 @@
     <title>Lexpat BankBot Example  </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1073.0.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
   </head>
-  <body>
-    <div class="container mx-auto">
+  <body class="bg-white">
+    <div class="container mx-auto" id="app">
       <div class="max-w-2xl border rounded">
         <div>
           <div class="w-full">
             <div class="relative flex items-center p-3 border-b border-gray-300">
-              <span class="block ml-2 font-bold text-gray-600">BankBot</span>
-              <select name="lg" id="lg" class="mx-5">
-                  <option value="sk">Slovensky</option>
-                  <option value="cz">Čeština</option>
-                  <option value="hu">Magyar</option>
-                  <option value="de">Deutch</option>
-                  <option value="en">English</option>
+              <span class="block ml-2 font-bold text-gray-600">{{AppName}}</span>
+              <select name="lg" id="lg" class="mx-5 bg-gray-600 text-gray-300" v-model="SelectedLanguage">
+                  <option  disabled>Select Language</option>
+                  <option v-for="language in LanguageList" v-bind:value="{ id: language.id, text: language.name }">
+                   {{ language.name }}
+                 </option>
                 </select>
             </div>
             <div class="relative w-full p-6 overflow-y-auto h-[40rem]">
 
               <ul class="space-y-2">
-                <li class="flex justify-start">
+                <li class="flex" v-for="msg in Messages" :key="msg.text" v-bind:class="msg.activeClass">
                   <div class="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
-                    <span class="block">Hi/Ahoj/Szia/Hallo!</span>
+                    <span class="block">{{ msg.text }}</span>
                   </div>
                 </li>
-                <li class="flex justify-end">
-                  <div class="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-                    <span class="block">Hiiii</span>
-                  </div>
-                </li>
-                <li class="flex justify-end">
-                  <div class="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-                    <span class="block">how are you?</span>
-                  </div>
-                </li>
-                <li class="flex justify-start">
-                  <div class="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
-                    <span class="block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. </span>
-                  </div>
-                </li>
+                
               </ul>
 
             </div>
@@ -57,9 +43,9 @@
 
               <input type="text" placeholder="Message"
                 class="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
-                name="message" required />
+                name="message" v-model="Prompt" v-on:keyup.enter="reply" required />
               
-              <button type="submit">
+              <button type="submit" @click="reply">
                 <svg class="w-5 h-5 text-gray-500 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20" fill="currentColor">
                   <path
@@ -74,13 +60,39 @@
         </div>
       </div>
     </div>
-  
-  <script type="text/javascript">
-      
-      
-      
-      
+
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          AppName: 'Lexpat BankBot',
+          SelectedLanguage: {id: 'en', name: 'English'},
+          LanguageList: [
+            {id: 'sk', name: 'Slovensky'},
+            {id: 'cz', name: 'Čeština'},
+            {id: 'hu', name: 'Magyar'},
+            {id: 'de', name: 'Deutch'},
+            {id: 'en', name: 'English'}
+          ],
+          Messages: [
+            {text: 'Hi/Ahoj/Szia/Hallo!', activeClass: 'justify-start'}
+          ],
+          Prompt: ''
+        }
+      },
+      methods: {
+        reply() {
+          
+          var newMessages = this.Messages
+          newMessages.push({ text:this.Prompt, activeClass: 'justify-end' })
+          this.$set(this.Messages, newMessages, true)
+          this.$set(this.Prompt, '', false)
+        }
+      }
+    }).mount('#app')
   </script>
+
   </body>
     
 </html>
